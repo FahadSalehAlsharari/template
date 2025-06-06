@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>  | مدونة التسويق التقني الذكي</title>
+    <meta
+      name="description"
+      content="مدونة احترافية متخصصة في مراجعات الاستضافة، إدارة الخوادم، تطوير الذكاء الاصطناعي والأمان التقني"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <section class="comments-section">
+      <div class="container">
+        <div class="comments-container">
+          <div class="comments-header">
+            <h2><i class="fas fa-comments" aria-hidden="true"></i> التعليقات (<span id="commentsCount">23</span>)</h2>
+            <div class="comments-filter">
+              <button class="filter-btn active" data-filter="newest">الأحدث</button>
+              <button class="filter-btn" data-filter="oldest">الأقدم</button>
+              <button class="filter-btn" data-filter="most-liked">الأكثر إعجاباً</button>
+            </div>
+          </div>
+
+          <!-- Comment Form -->
+          <div class="comment-form-container">
+            <h3><i class="fas fa-edit" aria-hidden="true"></i> اترك تعليقك</h3>
+
+            <!-- Security Notice -->
+            <div class="security-notice">
+              <i class="fas fa-shield-alt" aria-hidden="true"></i>
+              <span>تعليقاتك محمية بأحدث تقنيات الأمان وتخضع للمراجعة قبل النشر</span>
+            </div>
+
+            <form class="comment-form-fields" id="commentForm" novalidate>
+              <!-- CSRF Token (Hidden) -->
+              <input type="hidden" name="csrf_token" id="csrfToken" value="">
+              <input type="hidden" name="timestamp" id="timestamp" value="">
+              <input type="hidden" name="honeypot" id="honeypot" value="">
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="commentName" class="form-label">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                    الاسم <span class="required" aria-label="مطلوب">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="commentName"
+                    name="name"
+                    placeholder="اكتب اسمك الكامل"
+                    required
+                    maxlength="50"
+                    pattern="^[\u0600-\u06FFa-zA-Z\s]{2,50}$"
+                    autocomplete="name"
+                    aria-describedby="nameError nameHelp"
+                  />
+                  <div class="form-help" id="nameHelp">يجب أن يكون الاسم بين 2-50 حرف</div>
+                  <div class="form-error" id="nameError" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="commentEmail" class="form-label">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    البريد الإلكتروني <span class="required" aria-label="مطلوب">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="commentEmail"
+                    name="email"
+                    placeholder="example@domain.com"
+                    required
+                    maxlength="100"
+                    autocomplete="email"
+                    aria-describedby="emailError emailHelp"
+                  />
+                  <div class="form-help" id="emailHelp">لن يتم نشر بريدك الإلكتروني</div>
+                  <div class="form-error" id="emailError" role="alert"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="commentWebsite" class="form-label">
+                  <i class="fas fa-globe" aria-hidden="true"></i>
+                  الموقع الإلكتروني <span class="optional">(اختياري)</span>
+                </label>
+                <input
+                  type="url"
+                  id="commentWebsite"
+                  name="website"
+                  placeholder="https://example.com"
+                  maxlength="200"
+                  autocomplete="url"
+                  aria-describedby="websiteError"
+                />
+                <div class="form-error" id="websiteError" role="alert"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="commentText" class="form-label">
+                  <i class="fas fa-comment" aria-hidden="true"></i>
+                  التعليق <span class="required" aria-label="مطلوب">*</span>
+                </label>
+                <textarea
+                  id="commentText"
+                  name="comment"
+                  placeholder="اكتب تعليقك هنا... نرجو الالتزام بالأدب واحترام الآخرين"
+                  required
+                  minlength="10"
+                  maxlength="1000"
+                  rows="6"
+                  aria-describedby="commentError commentHelp commentCounter"
+                ></textarea>
+                <div class="form-help" id="commentHelp">
+                  <span id="commentCounter">0/1000</span> حرف
+                </div>
+                <div class="form-error" id="commentError" role="alert"></div>
+              </div>
+
+              <!-- reCAPTCHA -->
+              <div class="form-group">
+                <div class="recaptcha-container">
+                  <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+                  <div class="form-error" id="recaptchaError" role="alert"></div>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <div class="form-agreements">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="termsAgree" name="terms" required aria-describedby="termsError">
+                    <span class="checkbox-custom" aria-hidden="true"></span>
+                    <span>أوافق على
+                      <a href="#privacy-policy" target="_blank" rel="noopener">سياسة الخصوصية</a>
+                      و <a href="#terms-of-service" target="_blank" rel="noopener">شروط الاستخدام</a>
+                      <span class="required" aria-label="مطلوب">*</span>
+                    </span>
+                  </label>
+                  <div class="form-error" id="termsError" role="alert"></div>
+
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="emailNotifications" name="notifications">
+                    <span class="checkbox-custom" aria-hidden="true"></span>
+                    <span>أرغب في تلقي إشعارات عند الرد على تعليقي</span>
+                  </label>
+                </div>
+
+                <button type="submit" class="comment-submit-btn" id="submitComment" disabled>
+                  <span class="btn-text">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    نشر التعليق
+                  </span>
+                  <span class="btn-loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                    جاري الإرسال...
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Comments List -->
+          <div class="comments-list" id="commentsList">
+            <div class="comments-stats">
+              <span><i class="fas fa-eye" aria-hidden="true"></i> 1,245 مشاهدة للتعليقات</span>
+              <span><i class="fas fa-thumbs-up" aria-hidden="true"></i> 89 إعجاب إجمالي</span>
+            </div>
+
+            <!-- Sample Comments -->
+            <article class="comment-item" data-comment-id="1">
+              <div class="comment-avatar">
+                <img src="assets/images/avatars/default-avatar.svg" alt="محمد علي" loading="lazy" width="50" height="50">
+                <div class="comment-badge verified">
+                  <i class="fas fa-check-circle" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="comment-content">
+                <div class="comment-header">
+                  <h4 class="comment-author">محمد علي</h4>
+                  <div class="comment-meta">
+                    <time class="comment-date" datetime="2025-06-04T14:30:00+03:00">منذ يومين</time>
+                    <span class="comment-id">#1</span>
+                  </div>
+                </div>
+                <div class="comment-text">
+                  <p>مقال ممتاز وشامل! استفدت كثيراً من المقارنة بين شركات الاستضافة.
+                  فعلاً SiteGround تستحق التوصية. شكراً لكم على المجهود الرائع في المراجعة المفصلة.</p>
+                </div>
+                <div class="comment-actions">
+                  <button class="comment-action like-btn" data-action="like" aria-label="إعجاب بالتعليق">
+                    <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+                    <span class="action-text">إعجاب</span>
+                    <span class="action-count">(5)</span>
+                  </button>
+                  <button class="comment-action reply-btn" data-action="reply" aria-label="الرد على التعليق">
+                    <i class="fas fa-reply" aria-hidden="true"></i>
+                    <span class="action-text">رد</span>
+                  </button>
+                  <button class="comment-action report-btn" data-action="report" aria-label="الإبلاغ عن التعليق">
+                    <i class="fas fa-flag" aria-hidden="true"></i>
+                    <span class="action-text">إبلاغ</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article class="comment-item" data-comment-id="2">
+              <div class="comment-avatar">
+                <img src="assets/images/avatars/default-avatar.svg" alt="فاطمة أحمد" loading="lazy" width="50" height="50">
+              </div>
+              <div class="comment-content">
+                <div class="comment-header">
+                  <h4 class="comment-author">فاطمة أحمد</h4>
+                  <div class="comment-meta">
+                    <time class="comment-date" datetime="2025-06-03T16:45:00+03:00">منذ 3 أيام</time>
+                    <span class="comment-id">#2</span>
+                  </div>
+                </div>
+                <div class="comment-text">
+                  <p>شكراً على المراجعة المفصلة. هل يمكن إضافة مقارنة أسعار التجديد أيضاً؟
+                  هذا سيساعد كثيراً في اتخاذ القرار الصحيح.</p>
+                </div>
+                <div class="comment-actions">
+                  <button class="comment-action like-btn" data-action="like" aria-label="إعجاب بالتعليق">
+                    <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+                    <span class="action-text">إعجاب</span>
+                    <span class="action-count">(3)</span>
+                  </button>
+                  <button class="comment-action reply-btn" data-action="reply" aria-label="الرد على التعليق">
+                    <i class="fas fa-reply" aria-hidden="true"></i>
+                    <span class="action-text">رد</span>
+                  </button>
+                  <button class="comment-action report-btn" data-action="report" aria-label="الإبلاغ عن التعليق">
+                    <i class="fas fa-flag" aria-hidden="true"></i>
+                    <span class="action-text">إبلاغ</span>
+                  </button>
+                </div>
+
+                <!-- Author Reply -->
+                <div class="comment-reply-item">
+                  <div class="comment-avatar">
+                    <img src="assets/images/authors/author-1.svg" alt="أحمد محمد" loading="lazy" width="40" height="40">
+                    <div class="comment-badge author">
+                      <i class="fas fa-crown" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div class="comment-content">
+                    <div class="comment-header">
+                      <h4 class="comment-author">
+                        أحمد محمد
+                        <span class="author-badge">كاتب المقال</span>
+                      </h4>
+                      <div class="comment-meta">
+                        <time class="comment-date" datetime="2025-06-04T10:20:00+03:00">منذ يومين</time>
+                        <span class="comment-id">#2.1</span>
+                      </div>
+                    </div>
+                    <div class="comment-text">
+                      <p>شكراً لك فاطمة على الاقتراح الممتاز. سأقوم بإضافة جدول مقارنة أسعار التجديد
+                      في التحديث القادم للمقال. متابعة رائعة!</p>
+                    </div>
+                    <div class="comment-actions">
+                      <button class="comment-action like-btn" data-action="like" aria-label="إعجاب بالتعليق">
+                        <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="action-text">إعجاب</span>
+                        <span class="action-count">(8)</span>
+                      </button>
+                      <button class="comment-action report-btn" data-action="report" aria-label="الإبلاغ عن التعليق">
+                        <i class="fas fa-flag" aria-hidden="true"></i>
+                        <span class="action-text">إبلاغ</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Load More Comments -->
+            <div class="load-more-container">
+              <button class="load-more-comments" id="loadMoreComments">
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                تحميل المزيد من التعليقات (20 متبقي)
+              </button>
+            </div>
+          </div>
+
+          <!-- Comment Moderation Notice -->
+          <div class="moderation-notice">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+            <p>جميع التعليقات تخضع للمراجعة والاعتدال قبل النشر للحفاظ على جودة المحتوى واحترام جميع المستخدمين.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">`gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <!-- Logo -->
+          <div class="logo">
+            <h1><i class="fas fa-laptop-code"></i> تيك مارت</h1>
+            <span class="tagline">التسويق التقني الذكي</span>
+          </div>
+
+          <!-- Navigation -->
+          <nav class="main-nav" id="mainNav">
+            <ul class="nav-list">
+              <li><a href="#" class="nav-link active">الرئيسية</a></li>
+              <li><a href="#hosting" class="nav-link">🏢 الاستضافة</a></li>
+              <li><a href="#security" class="nav-link">🛡️ الأمان</a></li>
+              <li><a href="#servers" class="nav-link">⚙️ الخوادم</a></li>
+              <li><a href="#ai" class="nav-link">🤖 الذكاء الاصطناعي</a></li>
+              <li><a href="#tools" class="nav-link">💻 الأدوات</a></li>
+            </ul>
+          </nav>
+
+          <!-- Search & Actions -->
+          <div class="header-actions">
+            <div class="search-box">
+              <input
+                type="text"
+                placeholder="ابحث في المقالات..."
+                class="search-input"
+              />
+              <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <button class="newsletter-btn">اشترك في النشرة</button>
+            <button class="theme-toggle" aria-label="تبديل الوضع الليلي">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h2 class="hero-title">مرحباً بك في عالم التسويق التقني الاحترافي</h2>
+          <p class="hero-description">
+            نقدم لك مراجعات صادقة وشروحات متقدمة في الاستضافة، إدارة الخوادم،
+            تطوير الذكاء الاصطناعي، والأمان التقني من خبراء متخصصين.
+          </p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">مقال تقني</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">شركة استضافة</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5</span>
+              <span class="stat-label">سنوات خبرة</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Articles -->
+    <section class="featured-section">
+      <div class="container">
+        <h2 class="section-title">
+          <i class="fas fa-star"></i>
+          المقالات المميزة
+        </h2>
+        <div class="featured-grid">
+          <article class="featured-card main-featured">
+            <div class="card-image">
+              <img
+                src="assets/images/hosting-review.jpg"
+                alt="مراجعة شاملة لأفضل شركات الاستضافة"
+              />
+              <div class="card-category">🏢 الاستضافة</div>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">
+                مراجعة شاملة لأفضل 10 شركات استضافة في 2025
+              </h3>
+              <p class="card-excerpt">
+                دليل مفصل يقارن بين أشهر شركات الاستضافة من ناحية الأداء،
+                الأسعار، الدعم التقني، وميزات الأمان مع اختبارات حقيقية...
+              </p>
+              <div class="card-meta">
+                <span class="meta-date">5 يونيو 2025</span>
+                <span class="meta-read-time">15 دقيقة قراءة</span>
+              </div>
+              <a href="#" class="read-more-btn">اقرأ المزيد</a>
+            </div>
+          </article>
+
+          <div class="secondary-featured">
+            <article class="featured-card">
+              <div class="card-image">
+                <img
+                  src="assets/images/server-security.jpg"
+                  alt="دليل أمان الخوادم"
+                />
+                <div class="card-category">🛡️ الأمان</div>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">
+                  دليل شامل لحماية الخوادم من الهجمات الإلكترونية
+                </h3>
+                <p class="card-excerpt">
+                  خطوات عملية لتأمين خوادمك ضد أخطر التهديدات...
+                </p>
+                <div class="card-meta">
+                  <span class="meta-date">3 يونيو 2025</span>
+                  <span class="meta-read-time">12 دقيقة</span>
+                </div>
+                <a href="#" class="read-more-btn">اقرأ المزيد</a>
+              </div>
+            </article>
+
+            <article class="featured-card">
+              <div class="card-image">
+                <img
+                  src="assets/images/ai-development.jpg"
+                  alt="تطوير تطبيقات الذكاء الاصطناعي"
+                />
+                <div class="card-category">🤖 الذكاء الاصطناعي</div>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">
+                  كيفية بناء تطبيق ذكاء اصطناعي من الصفر
+                </h3>
+                <p class="card-excerpt">
+                  دليل المطورين لإنشاء تطبيقات AI باستخدام Python وTensorFlow...
+                </p>
+                <div class="card-meta">
+                  <span class="meta-date">1 يونيو 2025</span>
+                  <span class="meta-read-time">20 دقيقة</span>
+                </div>
+                <a href="#" class="read-more-btn">اقرأ المزيد</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Articles -->
+    <section class="latest-articles">
+      <div class="container">
+        <div class="content-wrapper">
+          <!-- Main Content -->
+          <main class="main-content">
+            <h2 class="section-title">
+              <i class="fas fa-clock"></i>
+              أحدث المقالات
+            </h2>
+
+            <div class="articles-grid">
+              <article class="article-card">
+                <div class="card-image">
+                  <img
+                    src="assets/images/cloudflare-guide.jpg"
+                    alt="دليل Cloudflare الشامل"
+                  />
+                  <div class="card-category">🚀 تحسين الأداء</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">
+                    كيفية استخدام Cloudflare لتسريع موقعك بنسبة 300%
+                  </h3>
+                  <p class="card-excerpt">
+                    شرح مفصل لإعداد Cloudflare وجميع ميزاته المتقدمة لتحسين سرعة
+                    وأمان موقعك الإلكتروني مع أمثلة عملية...
+                  </p>
+                  <div class="card-meta">
+                    <span class="meta-author">أحمد محمد</span>
+                    <span class="meta-date">30 مايو 2025</span>
+                    <span class="meta-read-time">18 دقيقة</span>
+                  </div>
+                  <a href="#" class="read-more-btn">اقرأ المزيد</a>
+                </div>
+              </article>
+
+              <article class="article-card">
+                <div class="card-image">
+                  <img
+                    src="assets/images/docker-tutorial.jpg"
+                    alt="دليل Docker للمبتدئين"
+                  />
+                  <div class="card-category">⚙️ إدارة الخوادم</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">
+                    تعلم Docker من الصفر: دليل المطور العربي الشامل
+                  </h3>
+                  <p class="card-excerpt">
+                    كل ما تحتاج لمعرفته عن Docker وكيفية استخدامه في تطوير ونشر
+                    التطبيقات بطريقة احترافية...
+                  </p>
+                  <div class="card-meta">
+                    <span class="meta-author">سارة أحمد</span>
+                    <span class="meta-date">28 مايو 2025</span>
+                    <span class="meta-read-time">25 دقيقة</span>
+                  </div>
+                  <a href="#" class="read-more-btn">اقرأ المزيد</a>
+                </div>
+              </article>
+
+              <article class="article-card">
+                <div class="card-image">
+                  <img
+                    src="assets/images/ssl-certificate.jpg"
+                    alt="شهادات SSL المجانية"
+                  />
+                  <div class="card-category">🛡️ الأمان</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">
+                    أفضل 7 مصادر للحصول على شهادات SSL مجانية
+                  </h3>
+                  <p class="card-excerpt">
+                    مقارنة شاملة بين أفضل مقدمي شهادات SSL المجانية مع شرح طريقة
+                    التثبيت والتجديد...
+                  </p>
+                  <div class="card-meta">
+                    <span class="meta-author">محمد علي</span>
+                    <span class="meta-date">26 مايو 2025</span>
+                    <span class="meta-read-time">12 دقيقة</span>
+                  </div>
+                  <a href="#" class="read-more-btn">اقرأ المزيد</a>
+                </div>
+              </article>
+
+              <article class="article-card">
+                <div class="card-image">
+                  <img
+                    src="assets/images/wordpress-optimization.jpg"
+                    alt="تحسين WordPress"
+                  />
+                  <div class="card-category">🚀 تحسين الأداء</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">
+                    20 طريقة لتسريع موقع WordPress وتحسين الـ SEO
+                  </h3>
+                  <p class="card-excerpt">
+                    نصائح وحيل متقدمة لجعل موقع WordPress الخاص بك أسرع وأكثر
+                    ظهوراً في محركات البحث...
+                  </p>
+                  <div class="card-meta">
+                    <span class="meta-author">فاطمة حسن</span>
+                    <span class="meta-date">24 مايو 2025</span>
+                    <span class="meta-read-time">22 دقيقة</span>
+                  </div>
+                  <a href="#" class="read-more-btn">اقرأ المزيد</a>
+                </div>
+              </article>
+
+              <article class="article-card">
+                <div class="card-image">
+                  <img src="assets/images/api-security.jpg" alt="أمان APIs" />
+                  <div class="card-category">🛡️ الأمان</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">
+                    دليل حماية APIs: أفضل الممارسات والأدوات
+                  </h3>
+                  <p class="card-excerpt">
+                    كيفية تأمين واجهات البرمجة (APIs) ضد الثغرات الأمنية الشائعة
+                    مع أمثلة عملية...
+                  </p>
+                  <div class="card-meta">
+                    <span class="meta-author">خالد محمود</span>
+                    <span class="meta-date">22 مايو 2025</span>
+                    <span class="meta-read-time">16 دقيقة</span>
+                  </div>
+                  <a href="#" class="read-more-btn">اقرأ المزيد</a>
+                </div>
+              </article>
+
+              <article class="article-card">
+                <div class="card-image">
+                  <img
+                    src="assets/images/python-automation.jpg"
+                    alt="أتمتة Python"
+                  />
+                  <div class="card-category">💻 الأدوات</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">
+                    15 سكريبت Python لأتمتة المهام اليومية للمطورين
+                  </h3>
+                  <p class="card-excerpt">
+                    مجموعة من السكريبتات الجاهزة لأتمتة المهام المتكررة وتوفير
+                    ساعات من العمل اليومي...
+                  </p>
+                  <div class="card-meta">
+                    <span class="meta-author">عمر صالح</span>
+                    <span class="meta-date">20 مايو 2025</span>
+                    <span class="meta-read-time">14 دقيقة</span>
+                  </div>
+                  <a href="#" class="read-more-btn">اقرأ المزيد</a>
+                </div>
+              </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+              <a href="#" class="pagination-btn prev-btn disabled">
+                <i class="fas fa-chevron-right"></i> السابق
+              </a>
+              <div class="pagination-numbers">
+                <a href="#" class="pagination-number active">1</a>
+                <a href="#" class="pagination-number">2</a>
+                <a href="#" class="pagination-number">3</a>
+                <span class="pagination-dots">...</span>
+                <a href="#" class="pagination-number">15</a>
+              </div>
+              <a href="#" class="pagination-btn next-btn">
+                التالي <i class="fas fa-chevron-left"></i>
+              </a>
+            </div>
+          </main>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <!-- Newsletter Signup -->
+            <div class="sidebar-widget newsletter-widget">
+              <h3 class="widget-title">
+                <i class="fas fa-envelope"></i>
+                النشرة الأسبوعية
+              </h3>
+              <p class="widget-description">
+                احصل على أحدث المقالات التقنية والمراجعات المفيدة مباشرة في
+                بريدك الإلكتروني
+              </p>
+              <form class="newsletter-form">
+                <input
+                  type="email"
+                  placeholder="بريدك الإلكتروني"
+                  class="newsletter-input"
+                  required
+                />
+                <button type="submit" class="newsletter-submit">اشتراك</button>
+              </form>
+            </div>
+
+            <!-- Popular Articles -->
+            <div class="sidebar-widget popular-widget">
+              <h3 class="widget-title">
+                <i class="fas fa-fire"></i>
+                الأكثر قراءة
+              </h3>
+              <div class="popular-articles">
+                <article class="popular-article">
+                  <div class="popular-number">1</div>
+                  <div class="popular-content">
+                    <h4>
+                      <a href="#">مقارنة شاملة: AWS vs Google Cloud vs Azure</a>
+                    </h4>
+                    <span class="popular-views">12,450 مشاهدة</span>
+                  </div>
+                </article>
+                <article class="popular-article">
+                  <div class="popular-number">2</div>
+                  <div class="popular-content">
+                    <h4>
+                      <a href="#">أفضل 10 أدوات مجانية لمراقبة أداء الموقع</a>
+                    </h4>
+                    <span class="popular-views">9,380 مشاهدة</span>
+                  </div>
+                </article>
+                <article class="popular-article">
+                  <div class="popular-number">3</div>
+                  <div class="popular-content">
+                    <h4>
+                      <a href="#">كيفية إعداد خادم VPS بـ 5 خطوات بسيطة</a>
+                    </h4>
+                    <span class="popular-views">8,920 مشاهدة</span>
+                  </div>
+                </article>
+                <article class="popular-article">
+                  <div class="popular-number">4</div>
+                  <div class="popular-content">
+                    <h4><a href="#">دليل المبتدئين لتعلم Git و GitHub</a></h4>
+                    <span class="popular-views">7,650 مشاهدة</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Recommended Tools -->
+            <div class="sidebar-widget tools-widget">
+              <h3 class="widget-title">
+                <i class="fas fa-tools"></i>
+                الأدوات الموصى بها
+              </h3>
+              <div class="recommended-tools">
+                <div class="tool-item">
+                  <div class="tool-icon">🚀</div>
+                  <div class="tool-content">
+                    <h4>SiteGround</h4>
+                    <p>أفضل استضافة للمطورين</p>
+                    <a href="#" class="tool-link">اطلع على التفاصيل</a>
+                  </div>
+                </div>
+                <div class="tool-item">
+                  <div class="tool-icon">🛡️</div>
+                  <div class="tool-content">
+                    <h4>Sucuri Security</h4>
+                    <p>حماية شاملة للمواقع</p>
+                    <a href="#" class="tool-link">اطلع على التفاصيل</a>
+                  </div>
+                </div>
+                <div class="tool-item">
+                  <div class="tool-icon">📊</div>
+                  <div class="tool-content">
+                    <h4>GTmetrix</h4>
+                    <p>أداة تحليل سرعة الموقع</p>
+                    <a href="#" class="tool-link">اطلع على التفاصيل</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="sidebar-widget categories-widget">
+              <h3 class="widget-title">
+                <i class="fas fa-folder"></i>
+                فئات المقالات
+              </h3>
+              <ul class="categories-list">
+                <li>
+                  <a href="#"><i class="fas fa-server"></i> الاستضافة (45)</a>
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-shield-alt"></i> الأمان (32)</a>
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-cogs"></i> إدارة الخوادم (28)</a>
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-robot"></i> الذكاء الاصطناعي (24)</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-tachometer-alt"></i> تحسين الأداء (38)</a
+                  >
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-tools"></i> الأدوات (41)</a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <div class="footer-logo">
+              <h3><i class="fas fa-laptop-code"></i> تيك مارت</h3>
+              <p>
+                مدونة التسويق التقني الذكي المتخصصة في مراجعات الاستضافة
+                والتقنيات الحديثة
+              </p>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4>فئات المحتوى</h4>
+            <ul class="footer-links">
+              <li><a href="#">مراجعات الاستضافة</a></li>
+              <li><a href="#">أمان المواقع</a></li>
+              <li><a href="#">إدارة الخوادم</a></li>
+              <li><a href="#">تطوير AI</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>صفحات مهمة</h4>
+            <ul class="footer-links">
+              <li><a href="#">من نحن</a></li>
+              <li><a href="#">اتصل بنا</a></li>
+              <li><a href="#">سياسة الخصوصية</a></li>
+              <li><a href="#">شروط الاستخدام</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>إحصائيات الموقع</h4>
+            <div class="footer-stats">
+              <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">مقال تقني</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">50k+</span>
+                <span class="stat-label">زائر شهرياً</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">سنوات خبرة</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 تيك مارت. جميع الحقوق محفوظة.</p>
+          <p class="footer-disclaimer">
+            هذا الموقع يحتوي على روابط تسويق بالعمولة، مما يعني أننا قد نحصل على
+            عمولة عند الشراء من خلال روابطنا.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
