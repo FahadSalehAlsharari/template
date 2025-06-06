@@ -1,0 +1,9 @@
+<!-- SVG logo for SiteGround -->
+<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="100" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+  <circle cx="50" cy="50" r="25" fill="#10b981"/>
+  <text x="50" y="55" font-family="Arial" font-size="12" font-weight="bold" fill="white" text-anchor="middle">SG</text>
+  <text x="120" y="35" font-family="Arial" font-size="14" font-weight="bold" fill="#1e3a8a">SiteGround</text>
+  <text x="120" y="50" font-family="Arial" font-size="10" fill="#64748b">سرعة فائقة</text>
+  <text x="120" y="65" font-family="Arial" font-size="10" fill="#64748b">أمان متقدم</text>
+</svg>

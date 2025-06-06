@@ -1,0 +1,6 @@
+<!-- SVG placeholder for default avatar -->
+<svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+  <rect width="150" height="150" fill="#64748b" rx="75"/>
+  <circle cx="75" cy="55" r="20" fill="#fff"/>
+  <path d="M35 120 Q75 100 115 120 L115 150 L35 150 Z" fill="#fff"/>
+</svg>

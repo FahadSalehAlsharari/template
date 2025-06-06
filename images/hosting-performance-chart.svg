@@ -1,0 +1,57 @@
+<!-- SVG placeholder for hosting comparison chart -->
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .chart-text { font-family: Arial, sans-serif; font-size: 12px; }
+      .chart-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="400" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+
+  <!-- Title -->
+  <text x="300" y="30" class="chart-title" text-anchor="middle" fill="#1e3a8a">مقارنة أداء شركات الاستضافة</text>
+
+  <!-- Y-axis -->
+  <line x1="60" y1="60" x2="60" y2="350" stroke="#64748b" stroke-width="2"/>
+
+  <!-- X-axis -->
+  <line x1="60" y1="350" x2="550" y2="350" stroke="#64748b" stroke-width="2"/>
+
+  <!-- Y-axis labels -->
+  <text x="50" y="80" class="chart-text" text-anchor="end" fill="#64748b">100%</text>
+  <text x="50" y="140" class="chart-text" text-anchor="end" fill="#64748b">80%</text>
+  <text x="50" y="200" class="chart-text" text-anchor="end" fill="#64748b">60%</text>
+  <text x="50" y="260" class="chart-text" text-anchor="end" fill="#64748b">40%</text>
+  <text x="50" y="320" class="chart-text" text-anchor="end" fill="#64748b">20%</text>
+
+  <!-- Bars -->
+  <!-- SiteGround -->
+  <rect x="80" y="90" width="40" height="260" fill="#10b981" opacity="0.8"/>
+  <text x="100" y="370" class="chart-text" text-anchor="middle" fill="#1e3a8a">SiteGround</text>
+  <text x="100" y="85" class="chart-text" text-anchor="middle" fill="#1e3a8a">95%</text>
+
+  <!-- Bluehost -->
+  <rect x="140" y="120" width="40" height="230" fill="#3b82f6" opacity="0.8"/>
+  <text x="160" y="370" class="chart-text" text-anchor="middle" fill="#1e3a8a">Bluehost</text>
+  <text x="160" y="115" class="chart-text" text-anchor="middle" fill="#1e3a8a">87%</text>
+
+  <!-- HostGator -->
+  <rect x="200" y="140" width="40" height="210" fill="#f59e0b" opacity="0.8"/>
+  <text x="220" y="370" class="chart-text" text-anchor="middle" fill="#1e3a8a">HostGator</text>
+  <text x="220" y="135" class="chart-text" text-anchor="middle" fill="#1e3a8a">82%</text>
+
+  <!-- DreamHost -->
+  <rect x="260" y="160" width="40" height="190" fill="#8b5cf6" opacity="0.8"/>
+  <text x="280" y="370" class="chart-text" text-anchor="middle" fill="#1e3a8a">DreamHost</text>
+  <text x="280" y="155" class="chart-text" text-anchor="middle" fill="#1e3a8a">78%</text>
+
+  <!-- A2 Hosting -->
+  <rect x="320" y="110" width="40" height="240" fill="#06b6d4" opacity="0.8"/>
+  <text x="340" y="370" class="chart-text" text-anchor="middle" fill="#1e3a8a">A2 Hosting</text>
+  <text x="340" y="105" class="chart-text" text-anchor="middle" fill="#1e3a8a">89%</text>
+
+  <!-- Legend -->
+  <text x="70" y="390" class="chart-text" fill="#64748b">النقاط بناءً على: السرعة، الأمان، الدعم التقني، الموثوقية</text>
+</svg>

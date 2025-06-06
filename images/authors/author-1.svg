@@ -1,0 +1,7 @@
+<!-- SVG placeholder for author photo -->
+<svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+  <rect width="150" height="150" fill="#1e3a8a"/>
+  <circle cx="75" cy="60" r="25" fill="#fff"/>
+  <path d="M25 125 Q75 100 125 125 L125 150 L25 150 Z" fill="#fff"/>
+  <text x="75" y="140" font-family="Arial" font-size="12" fill="#1e3a8a" text-anchor="middle">أحمد محمد</text>
+</svg>
